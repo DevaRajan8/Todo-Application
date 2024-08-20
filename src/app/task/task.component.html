@@ -1,0 +1,71 @@
+<h1 class="text-center my-5" style="color: #1c1b1b; font-weight: bold; font-size: 3rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
+    Todo Application
+</h1>
+<div class="container p-5 rounded" style="background: linear-gradient(135deg, #4A90E2 0%, #007AFF 100%); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);">
+    <form (ngSubmit)="createTask()" style="margin-bottom: 3rem;">
+        <div class="row mt-4">
+            <div class="col-md-8 mb-2">
+                <input type="text" class="form-control" [(ngModel)]="newtask.desp" name="taskDescription" placeholder="Enter your task here"
+                    style="border: none; padding: 1rem; border-radius: 50px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); font-size: 1.2rem;">
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-success w-100" type="submit"
+                    style="background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); border: none; padding: 0.75rem 1rem; border-radius: 50px; font-size: 1.2rem; font-weight: bold;">
+                    Add Task
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <div *ngIf="!(tasks.length > 0); else tasklist" style="text-align: center; color: #ffffff; font-size: 1.5rem; background: rgba(0, 0, 0, 0.2); padding: 1rem; border-radius: 10px;">
+                <h3>No Tasks Available</h3>
+            </div>
+            <ng-template #tasklist>
+                <ul class="list-group" style="border-radius: 10px; overflow: hidden;">
+                    <li class="list-group-item text-light mb-3" *ngFor="let task of tasks"
+                        style="background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%); border: none; padding: 1rem;">
+                        <div class="row">
+                            <div class="col-8">
+                                <p style="margin: 0; font-size: 1.2rem; font-weight: bold;">{{ task.desp }}</p>
+                            </div>
+                            <div class="col-4 text-right">
+                                <button class="btn btn-light mx-1" (click)="editTasks(task)"
+                                    style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border: none; padding: 0.5rem 1rem; border-radius: 25px; font-size: 1rem;">
+                                    Edit
+                                </button>
+                                <button class="btn btn-light mt-2" (click)="deletetask(task.id)"
+                                    style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border: none; padding: 0.5rem 1rem; border-radius: 25px; font-size: 1rem;">
+                                    Completed
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </ng-template>
+        </div>
+
+        <div class="col-md-6">
+            <div *ngIf="editasks" style="padding: 2rem; background: linear-gradient(135deg, #ffffff 0%, #e0eafc 100%); border-radius: 15px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+                <form (ngSubmit)="updateTasks()">
+                    <label for="editTaskDescription" style="font-weight: bold; font-size: 1.5rem;">Edit Task</label>
+                    <div class="form-group mt-3">
+                        <input type="text" [(ngModel)]="updatedtasks.desp" name="updateTaskDescription" class="form-control" id="editTaskDescription"
+                            style="border: none; padding: 1rem; border-radius: 50px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); font-size: 1.2rem;">
+                    </div>
+                    <div class="form-group mt-4 d-flex justify-content-between">
+                        <button type="submit" class="btn btn-success"
+                            style="background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%); border: none; padding: 0.75rem 1.5rem; border-radius: 50px; font-size: 1.2rem; font-weight: bold;">
+                            Save
+                        </button>
+                        <button class="btn btn-danger" (click)="canceledit()"
+                            style="background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%); border: none; padding: 0.75rem 1.5rem; border-radius: 50px; font-size: 1.2rem; font-weight: bold;">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
